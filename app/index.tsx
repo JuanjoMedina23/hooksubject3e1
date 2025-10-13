@@ -1,26 +1,39 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { Link, router } from 'expo-router';
+import React, { useState } from 'react';
+import { router } from 'expo-router';
 
-const index = () => {
+const Index = () => {
+  const [handle, setHandle] = useState<boolean>(true);
+
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       <TouchableOpacity 
-        onPress={() => {router.push("../DashboardScreen")}} // Aquí puedes agregar alguna lógica si lo necesitas
-        activeOpacity={0.7} // Hace que el botón tenga un efecto de opacidad cuando se presiona
+        onPress={() => router.push("../DashboardScreen")}
+        activeOpacity={0.7}
         style={{
-          backgroundColor: '#3498db', // Color de fondo del botón
-          paddingVertical: 10, // Espacio en la parte superior e inferior del botón
-          paddingHorizontal: 20, // Espacio en los lados del botón
-          borderRadius: 5, // Bordes redondeados
+          backgroundColor: '#3498db',
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 5,
           justifyContent: 'center',
           alignItems: 'center',
+          marginBottom: 20
         }}
       >
-          <Text style={{ color: 'white', fontSize: 16 }}>Go to DashboardScreen</Text>
+        <Text style={{ color: 'white', fontSize: 16 }}>Go to DashboardScreen</Text>
       </TouchableOpacity>
+
+      {handle ? (
+        <TouchableOpacity onPress={() => setHandle(false)}>
+          <Text>DESPEDIRSE</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={() => setHandle(true)}>
+          <Text>HOLA</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
-export default index;
+export default Index;
