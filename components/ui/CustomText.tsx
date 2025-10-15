@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 
 interface CustomTextProps {
-  variant?: "normal" | "subtitle" | "title" | "button" | "link";
+  variant?: "normal" | "subtitle" | "title" | "button" | "link"|"titleSPOTY";
   value: string; 
 }
 
@@ -28,6 +28,8 @@ function selectVariant(variant: string): string {
       return "text-white font-bold text-center";
     case "link":
       return "text-blue-600 underline text-center";
+      case "titleSPOTY":
+      return "text-white font-bold text-2xl";
     default:
       return "text-black font-normal";
   }

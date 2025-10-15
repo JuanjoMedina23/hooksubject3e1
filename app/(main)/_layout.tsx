@@ -1,17 +1,41 @@
-import { Stack } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import React from "react";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Feather from '@expo/vector-icons/Feather';
+import Entypo from '@expo/vector-icons/Entypo';
+import "@/global.css";
 
-const MainLayout = () => {
+
+const TabsLayout = () => {
   return (
-    <Stack screenOptions={{ headerStyle: { backgroundColor: 'blue' } }}>
-      <Stack.Screen
-        name="DashboardScreen"
-        options={{
-          title: "mierda de perro"
-        }}
+    <Tabs screenOptions={{
+      tabBarActiveTintColor: "white",
+      tabBarInactiveTintColor: "gray",
+      tabBarStyle: { backgroundColor: "black", borderTopWidth: 0 },
+      headerShown: false,
+    }}>
+      <Tabs.Screen 
+        name="DashboardScreen" 
+        options={{ 
+          title: "",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="music" color={'green'} size={size} />
+          )
+        }} 
       />
-    </Stack>
+
+      {/* Settings */}
+      <Tabs.Screen 
+        name="SettingScreen" 
+        options={{ 
+          title: "",
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="cog" color={'green'} size={size} />
+          )
+        }} 
+      />
+    </Tabs>
   );
 };
 
-export default MainLayout
+export default TabsLayout;
