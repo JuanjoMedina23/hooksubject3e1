@@ -83,7 +83,7 @@ const DashboardScreen = () => {
         </View>
         
         {/* Playlists destacadas */}
-        <CustomText variant="title" value="Destacadas" />
+        <CustomText variant="titleSPOTY" value="Destacadas" />
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
