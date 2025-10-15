@@ -61,6 +61,10 @@ const songs: Song[] = [
 ];
 
 const DashboardScreen = () => {
+  // Estados para el reproductor
+  const [isPlaying, setIsPlaying] = React.useState(true);
+  const [isFavorite, setIsFavorite] = React.useState(false);
+  
   // Canción que se está reproduciendo (la primera como ejemplo)
   const nowPlaying = songs[0];
 
@@ -83,7 +87,7 @@ const DashboardScreen = () => {
         </View>
         
         {/* Playlists destacadas */}
-        <CustomText variant="titleSPOTY" value="Destacadas" />
+        <CustomText variant="title" value="Destacadas" />
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -210,11 +214,19 @@ const DashboardScreen = () => {
 
           {/* Controles */}
           <View className="flex-row items-center gap-4">
-            <TouchableOpacity>
-              <Ionicons name="heart-outline" size={24} color="white" />
+            <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
+              <Ionicons 
+                name={isFavorite ? "heart" : "heart-outline"} 
+                size={24} 
+                color={isFavorite ? "#FF0000" : "white"} 
+              />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons name="pause" size={28} color="white" />
+            <TouchableOpacity onPress={() => setIsPlaying(!isPlaying)}>
+              <Ionicons 
+                name={isPlaying ? "pause" : "play"} 
+                size={28} 
+                color="white" 
+              />
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -242,4 +254,4 @@ const DashboardScreen = () => {
   );
 };
 
-export default DashboardScreen; 
+export default DashboardScreen;
