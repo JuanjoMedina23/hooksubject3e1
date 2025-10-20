@@ -1,5 +1,7 @@
 import { View, Text, Switch, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const SettingScreen = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -9,6 +11,7 @@ const SettingScreen = () => {
   const cardColor = darkMode ? "bg-gray-900" : "bg-white";
   const textColor = darkMode ? "text-white" : "text-black";
   const subTextColor = darkMode ? "text-gray-400" : "text-gray-700";
+
 
   return (
     <View className={`flex-1 px-6 py-8 ${bgColor}`}>
@@ -55,10 +58,21 @@ const SettingScreen = () => {
       </View>
 
       {/* Privacidad */}
-      <View className="flex-row justify-end">
+      <View className="flex-row justify-end mb-4">
         <TouchableOpacity className={`p-5 rounded-2xl ${cardColor} shadow-lg w-2/3`}>
           <Text className={`text-base font-semibold ${textColor}`}>Privacidad</Text>
           <Text className={`text-sm ${subTextColor}`}>Ajusta tu privacidad y permisos</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Botón de Cerrar Sesión */}
+      <View className="flex-row justify-end mt-8">
+        <TouchableOpacity 
+           onPress={() => router.push('/')}
+          className="bg-red-600 p-5 rounded-2xl shadow-lg w-2/3 flex-row items-center justify-center"
+        >
+          <Ionicons name="log-out-outline" size={24} color="white" style={{ marginRight: 8 }} />
+          <Text className="text-white text-base font-bold">Cerrar Sesión</Text>
         </TouchableOpacity>
       </View>
     </View>
