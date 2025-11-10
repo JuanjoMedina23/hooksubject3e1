@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   View,
   ScrollView,
@@ -359,12 +360,18 @@ const DashboardScreen = () => {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={toggleRepeat}>
-                <Ionicons
-                   name={repeatMode === 2 ? "repeat-one" as any : repeatMode === 1 ? "repeat" : "repeat-outline"}
-  size={36}
-  color={repeatMode !== 0 ? "#A494D8" : "white"}
-                />
-              </TouchableOpacity>
+              <MaterialCommunityIcons
+                name={
+                repeatMode === 2
+                  ? "repeat-once"
+                  : repeatMode === 1
+                  ? "repeat"
+                  : "repeat-off"
+              }
+              size={36}
+              color={repeatMode !== 0 ? "#A494D8" : "white"}
+                     />
+          </TouchableOpacity>
             </View>
           </View>
         </LinearGradient>
