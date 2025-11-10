@@ -7,8 +7,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import "@/global.css";
 import { z } from "zod";
 
-const registerSchema = z
-  .object({
+const registerSchema = z //se crea un objeto z, q se va a usar para guardar las varibales que usaremos para registrar a ususario
+  .object({//este objeto tiene nombre de usuario, email, que tiene que cumplir con algunos campos por ejemplo q tenga @gamil.com
     name: z.string().min(1, "El nombre es obligatorio."),
     email: z
       .string()
@@ -16,15 +16,15 @@ const registerSchema = z
       .refine((val) => val.endsWith("@gmail.com"), {
         message: "El correo debe ser una cuenta de Gmail (@gmail.com).",
       }),
-    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."),
+    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."),//debe contener al menos 6 caracteres valga la redundancia
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, { // aqui valida si las contraseñas son iguales
     message: "Las contraseñas no coinciden.",
     path: ["confirmPassword"],
   });
 
-const loginSchema = z.object({
+const loginSchema = z.object({//aqui solo se usa el email y la contraseña para validar si es correcto o no el login 
   email: z
     .string()
     .email("Correo electrónico inválido.")
@@ -152,7 +152,8 @@ const Login: React.FC = () => {
         {/* Divider opcional */}
         <View className="h-px w-full bg-gray-700 my-6" />
 
-        {/* Botón Facebook */}
+        {/* Botón Facebook
+        --------------------IMPORTANTE, SOLO ESTE BOTON MANDA AL NOT FOUND PAGE------------------ */}
         <Pressable
           onPress={() => router.push("/+not-found")}
           className="bg-[#3b5998] p-3 rounded-full mb-3 flex-row items-center justify-center"
