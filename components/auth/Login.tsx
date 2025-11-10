@@ -5,6 +5,35 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import "@/global.css";
+import { z } from "zod";
+
+const registerSchema = z
+  .object({
+    name: z.string().min(1, "El nombre es obligatorio."),
+    email: z
+      .string()
+      .email("Correo electrónico inválido.")
+      .refine((val) => val.endsWith("@gmail.com"), {
+        message: "El correo debe ser una cuenta de Gmail (@gmail.com).",
+      }),
+    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden.",
+    path: ["confirmPassword"],
+  });
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .email("Correo electrónico inválido.")
+    .refine((val) => val.endsWith("@gmail.com"), {
+      message: "El correo debe ser una cuenta de Gmail (@gmail.com).",
+    }),
+  password: z.string().min(1, "La contraseña es obligatoria."),
+  
+});
 
 const Login: React.FC = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -15,30 +44,34 @@ const Login: React.FC = () => {
 
   const handleAuth = () => {
     if (isRegistering) {
-      // Validación de registro
-      if (!name || !email || !password || !confirmPassword) {
-        alert("Por favor, completa todos los campos.");
+      
+      const result = registerSchema.safeParse({
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
+
+      if (!result.success) {
+        alert(result.error.errors[0].message);
         return;
       }
 
-      if (password !== confirmPassword) {
-        alert("Las contraseñas no coinciden.");
-        return;
-      }
-
-      // Lógica de registro aquí
+     
       router.push("/DashboardScreen");
-
     } else {
-      // Validación de inicio de sesión
-      if (!email || !password) {
-        alert("Por favor, ingresa tu correo y contraseña.");
+      
+      const result = loginSchema.safeParse({ email, password });
+
+      if (!result.success) {
+        alert(result.error.errors[0].message);
         return;
       }
 
-      // Lógica de login aquí
+     
       router.push("/DashboardScreen");
     }
+    
   };
 
   return (
